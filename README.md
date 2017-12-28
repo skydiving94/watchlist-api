@@ -8,7 +8,7 @@ This is a mock Watchlist API which provides the following functionalities.
 
 Example usage shown below.
 
-```zsh
+```fish
 $ http :3000/signup name=admin email=admin@admin.com password=admin password_confirmation=admin
 Started POST "/signup" for 127.0.0.1 at 2017-12-28 15:30:52 -0600
 Processing by AdministratorsController#create as HTML
