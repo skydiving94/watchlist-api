@@ -1,8 +1,11 @@
 require 'rails_helper'
 
 RSpec.describe 'Watchlist API', type: :request do
-  let!(:stocks) {create_list(:stock, 10)}
+  let(:administrator) {create(:administrator)}
+  let!(:stocks) {create_list(:stock, 10, added_by: administrator.id)}
   let(:stock_id) {stocks.first.id}
+  let(:headers) {valid_headers}
+
   let(:valid_post_attributes) {
     {
       code: 'MSFT',
@@ -10,7 +13,8 @@ RSpec.describe 'Watchlist API', type: :request do
       highest: 48.42,
       lowest: 48.42,
       current: 48.42,
-      difference: 0
+      difference: 0,
+      # added_by: administrator
     }
   }
 
@@ -29,7 +33,7 @@ RSpec.describe 'Watchlist API', type: :request do
   }
 
   describe 'GET /stocks' do
-    before {get '/stocks'}
+    before {get '/stocks', params: {}, headers: headers}
 
     it 'returns stocks' do
       expect(json).not_to be_empty
@@ -43,7 +47,7 @@ RSpec.describe 'Watchlist API', type: :request do
 
   describe 'POST /stocks' do
     context 'when the request is valid' do
-      before {post '/stocks', params: valid_post_attributes}
+      before {post '/stocks', params: valid_post_attributes, headers: headers}
 
       it 'creates a stock' do
         expect(json['code']).to eq('MSFT')
@@ -55,7 +59,7 @@ RSpec.describe 'Watchlist API', type: :request do
     end
 
     context 'when the request is invalid' do
-      before {post '/stocks', params: invalid_attributes}
+      before {post '/stocks', params: invalid_attributes, headers: headers}
 
       it 'returns status code 422' do
         expect(response).to have_http_status(422)
@@ -69,7 +73,7 @@ RSpec.describe 'Watchlist API', type: :request do
   end
 
   describe 'GET /stocks/:id' do
-    before {get "/stocks/#{stock_id}"}
+    before {get "/stocks/#{stock_id}", params: {}, headers: headers}
 
     context 'when the record exists' do
       it 'returns the stock' do
@@ -97,7 +101,7 @@ RSpec.describe 'Watchlist API', type: :request do
 
   describe 'PUT /stocks/:id' do
     context 'when the record exists and the request is valid' do
-      before {put "/stocks/#{stock_id}", params: valid_put_attributes}
+      before {put "/stocks/#{stock_id}", params: valid_put_attributes, headers: headers}
 
       it 'updates the record' do
         expect(response.body).to be_empty
@@ -110,7 +114,7 @@ RSpec.describe 'Watchlist API', type: :request do
 
     context 'when the record does not exist' do
       let(:stock_id) {100}
-      before {put "/stocks/#{stock_id}", params: valid_put_attributes}
+      before {put "/stocks/#{stock_id}", params: valid_put_attributes, headers: headers}
 
       it 'returns the status code 404' do
         expect(response).to have_http_status(404)
@@ -123,7 +127,7 @@ RSpec.describe 'Watchlist API', type: :request do
   end
 
   describe 'DELETE /stocks/:id' do
-    before {delete "/stocks/#{stock_id}"}
+    before {delete "/stocks/#{stock_id}", params: {}, headers: headers}
 
     it 'returns status code 204' do
       expect(response).to have_http_status(204)
