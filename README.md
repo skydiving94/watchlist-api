@@ -8,8 +8,7 @@ This is a mock Watchlist API which provides the following functionalities.
 
 Example usage shown below.
 
-```
-
+```shell
 http :3000/signup name=admin email=admin@admin.com password=admin password_confirmation=admin
 Started POST "/signup" for 127.0.0.1 at 2017-12-28 15:30:52 -0600
 Processing by AdministratorsController#create as HTML
@@ -36,7 +35,7 @@ X-Runtime: 0.187804
     "message": "Account created successfully"
 }
 
- %  ~/D/l/r/watchlist-api   master * 
+$
 http :3000/auth/login email=admin@admin.com password=admin
 Started POST "/auth/login" for 127.0.0.1 at 2017-12-28 15:31:10 -0600
 Processing by AuthenticationController#authenticate as HTML
@@ -60,7 +59,7 @@ X-Runtime: 0.111946
     "auth_token": "eyJhbGciOiJIUzI1NiJ9.eyJhZG1pbmlzdHJhdG9yX2lkIjoxLCJleHAiOjE1MTQ1ODMwNzB9.8Hz4vX48gwhsYV_I6hheAGs8xKMb3f6wXdKDDbHGKcc"
 }
 
- %  ~/D/l/r/watchlist-api   master *  http :3000/stocks
+$ http :3000/stocks
 Started GET "/stocks" for 127.0.0.1 at 2017-12-28 15:31:41 -0600
 Processing by StocksController#index as */*
   Stock Load (0.1ms)  SELECT "stocks".* FROM "stocks"
@@ -90,7 +89,7 @@ X-Runtime: 0.009354
     }
 ]
 
- %  ~/D/l/r/watchlist-api   master * 
+$
 http POST :3000/stocks/ code=ADS name=Adidas_AG highest=60.10 lowest=60.10 current=60.10 difference=0
 Started POST "/stocks/" for 127.0.0.1 at 2017-12-28 15:33:16 -0600
 Processing by StocksController#create as HTML
@@ -109,7 +108,7 @@ X-Runtime: 0.001547
     "message": "Missing token"
 }
 
- %  ~/D/l/r/watchlist-api   master * 
+$
 http POST :3000/stocks/ code=ADS name=Adidas_AG highest=60.10 lowest=60.10 current=60.10 difference=0 \
 Authorization:'eyJhbGciOiJIUzI1NiJ9.eyJhZG1pbmlzdHJhdG9yX2lkIjoxLCJleHAiOjE1MTQ1ODMwNzB9.8Hz4vX48gwhsYV_I6hheAGs8xKMb3f6wXdKDDbHGKcc'
 Started POST "/stocks/" for 127.0.0.1 at 2017-12-28 15:33:39 -0600
@@ -144,7 +143,7 @@ X-Runtime: 0.020508
     "updated_at": "2017-12-28T21:33:39.049Z"
 }
 
- %  ~/D/l/r/watchlist-api   master *  http :3000/stocks
+$ http :3000/stocks
 Started GET "/stocks" for 127.0.0.1 at 2017-12-28 15:33:59 -0600
 Processing by StocksController#index as */*
   Stock Load (0.1ms)  SELECT "stocks".* FROM "stocks"
@@ -186,7 +185,7 @@ X-Runtime: 0.002424
     }
 ]
 
- %  ~/D/l/r/watchlist-api   master *  http :3000/stocks/2
+$ http :3000/stocks/2
 Started GET "/stocks/2" for 127.0.0.1 at 2017-12-28 15:34:02 -0600
 Processing by StocksController#show as */*
   Parameters: {"id"=>"2"}
@@ -215,7 +214,7 @@ X-Runtime: 0.002277
     "updated_at": "2017-12-28T21:33:39.049Z"
 }
 
- %  ~/D/l/r/watchlist-api   master *  http PUT :3000/stocks/2 current=70.2
+$ http PUT :3000/stocks/2 current=70.2
 Started PUT "/stocks/2" for 127.0.0.1 at 2017-12-28 15:34:18 -0600
 Processing by StocksController#update as HTML
   Parameters: {"current"=>"70.2", "id"=>"2", "stock"=>{"current"=>"70.2"}}
@@ -233,7 +232,7 @@ X-Runtime: 0.001325
     "message": "Missing token"
 }
 
- %  ~/D/l/r/watchlist-api   master *  http PUT :3000/stocks/2 current=70.2 \
+$ http PUT :3000/stocks/2 current=70.2 \
                                           Authorization:'eyJhbGciOiJIUzI1NiJ9.eyJhZG1pbmlzdHJhdG9yX2lkIjoxLCJleHAiOjE1MTQ1ODMwNzB9.8Hz4vX48gwhsYV_I6hheAGs8xKMb3f6wXdKDDbHGKcc'
 Started PUT "/stocks/2" for 127.0.0.1 at 2017-12-28 15:34:27 -0600
 Processing by StocksController#update as HTML
@@ -258,7 +257,7 @@ X-Runtime: 0.017024
 
 
 
- %  ~/D/l/r/watchlist-api   master *  http :3000/stocks
+$ http :3000/stocks
 Started GET "/stocks" for 127.0.0.1 at 2017-12-28 15:34:36 -0600
 Processing by StocksController#index as */*
   Stock Load (0.1ms)  SELECT "stocks".* FROM "stocks"
@@ -299,5 +298,4 @@ X-Runtime: 0.002088
         "updated_at": "2017-12-28T21:34:27.896Z"
     }
 ]
-
 ```
