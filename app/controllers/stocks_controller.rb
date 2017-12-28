@@ -1,8 +1,9 @@
 class StocksController < ApplicationController
   before_action :set_stock, only: [:show, :update, :destroy]
+  skip_before_action :authorize_request, only: [:index, :show]
 
   def index
-    @stocks = current_administrator.stocks
+    @stocks = Stock.all
     json_response(@stocks)
   end
 

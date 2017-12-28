@@ -33,7 +33,7 @@ RSpec.describe 'Watchlist API', type: :request do
   }
 
   describe 'GET /stocks' do
-    before {get '/stocks', params: {}, headers: headers}
+    before {get '/stocks', params: {}, headers: {}}
 
     it 'returns stocks' do
       expect(json).not_to be_empty
@@ -73,7 +73,7 @@ RSpec.describe 'Watchlist API', type: :request do
   end
 
   describe 'GET /stocks/:id' do
-    before {get "/stocks/#{stock_id}", params: {}, headers: headers}
+    before {get "/stocks/#{stock_id}", params: {}, headers: {}}
 
     context 'when the record exists' do
       it 'returns the stock' do
