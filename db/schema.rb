@@ -10,7 +10,15 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171228020925) do
+ActiveRecord::Schema.define(version: 20171228022317) do
+
+  create_table "administrators", force: :cascade do |t|
+    t.string "name"
+    t.string "email"
+    t.string "password_digest"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "stocks", force: :cascade do |t|
     t.string "code"
@@ -21,6 +29,7 @@ ActiveRecord::Schema.define(version: 20171228020925) do
     t.float "difference"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "added_by"
   end
 
 end
