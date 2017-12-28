@@ -6,6 +6,8 @@ This is a mock Watchlist API which provides the following functionalities.
 
 * Viewing the existing stock information which does not require authorization.
 
+I am using httpie for testing in the example usage shown below. 
+
 Example usage shown below.
 
 ```fish
