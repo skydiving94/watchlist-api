@@ -43,6 +43,8 @@ RSpec.configure do |config|
   config.use_transactional_fixtures = true
 
   config.include FactoryGirl::Syntax::Methods
+  config.include RequestSpecHelper
+  config.include ControllerSpecHelper
 
   config.before(:suite) do
     DatabaseCleaner.clean_with(:truncation)
