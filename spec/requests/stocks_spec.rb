@@ -3,14 +3,22 @@ require 'rails_helper'
 RSpec.describe 'Watchlist API', type: :request do
   let!(:stocks) {create_list(:stock, 10)}
   let(:stock_id) {stocks.first.id}
-  let(:valid_attributes) {
+  let(:valid_post_attributes) {
     {
       code: 'MSFT',
       name: 'Microsoft Corp',
-      highest: 48.97,
-      lowest: 48.34,
+      highest: 48.42,
+      lowest: 48.42,
       current: 48.42,
-      difference: -0.42
+      difference: 0
+    }
+  }
+
+  let(:valid_put_attributes) {
+    {
+      code: 'MSFT',
+      name: 'Microsoft Corp',
+      current: 48.42
     }
   }
 
@@ -35,7 +43,7 @@ RSpec.describe 'Watchlist API', type: :request do
 
   describe 'POST /stocks' do
     context 'when the request is valid' do
-      before {post '/stocks', params: valid_attributes}
+      before {post '/stocks', params: valid_post_attributes}
 
       it 'creates a stock' do
         expect(json['code']).to eq('MSFT')
@@ -89,7 +97,7 @@ RSpec.describe 'Watchlist API', type: :request do
 
   describe 'PUT /stocks/:id' do
     context 'when the record exists and the request is valid' do
-      before {put "/stocks/#{stock_id}", params: valid_attributes}
+      before {put "/stocks/#{stock_id}", params: valid_put_attributes}
 
       it 'updates the record' do
         expect(response.body).to be_empty
@@ -102,7 +110,7 @@ RSpec.describe 'Watchlist API', type: :request do
 
     context 'when the record does not exist' do
       let(:stock_id) {100}
-      before {put "/stocks/#{stock_id}", params: valid_attributes}
+      before {put "/stocks/#{stock_id}", params: valid_put_attributes}
 
       it 'returns the status code 404' do
         expect(response).to have_http_status(404)

@@ -7,7 +7,7 @@ class StocksController < ApplicationController
   end
 
   def create
-    @stock = Stock.create!(stock_params)
+    @stock = Stock.create!(stock_create_params)
     json_response(@stock, :created)
   end
 
@@ -16,8 +16,18 @@ class StocksController < ApplicationController
   end
 
   def update
-    @stock.update(stock_params)
-    head :no_content
+    prevVal = @stock.current
+    @stock.update(stock_update_params)
+    
+    if @stock.current > @stock.highest
+      @stock.highest = @stock.current
+    end
+
+    if @stock.current < @stock.lowest
+      @stock.lowest = @stock.current
+    end
+
+    @stock.difference = @stock.current - prevVal
   end
 
   def destroy
@@ -26,8 +36,12 @@ class StocksController < ApplicationController
   end
 
 private
-  def stock_params
+  def stock_create_params
     params.permit(:code, :name, :highest, :lowest, :current, :difference)
+  end
+
+  def stock_update_params
+    params.permit(:code, :name, :current)
   end
 
   def set_stock
