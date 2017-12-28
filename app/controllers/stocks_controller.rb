@@ -18,6 +18,7 @@ class StocksController < ApplicationController
 
   def update
     prevVal = @stock.current
+    stock =
     @stock.update(stock_update_params)
 
     if @stock.current > @stock.highest
@@ -29,6 +30,18 @@ class StocksController < ApplicationController
     end
 
     @stock.difference = @stock.current - prevVal
+    puts "difference is #{@stock.difference}"
+
+    # FIXME: Is there some more elegant way to format this so that I do not call
+    #         update twice?
+    @stock.update({
+      code: @stock.code,
+      name: @stock.name,
+      highest: @stock.highest,
+      lowest: @stock.lowest,
+      current: @stock.current,
+      difference: @stock.difference
+      })
   end
 
   def destroy
@@ -42,7 +55,7 @@ private
   end
 
   def stock_update_params
-    params.permit(:code, :name, :current)
+    params.permit(:current)
   end
 
   def set_stock

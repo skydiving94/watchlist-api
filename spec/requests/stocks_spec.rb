@@ -20,8 +20,6 @@ RSpec.describe 'Watchlist API', type: :request do
 
   let(:valid_put_attributes) {
     {
-      code: 'MSFT',
-      name: 'Microsoft Corp',
       current: 48.42
     }
   }
