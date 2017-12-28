@@ -8,8 +8,8 @@ This is a mock Watchlist API which provides the following functionalities.
 
 Example usage shown below.
 
-```shell
-http :3000/signup name=admin email=admin@admin.com password=admin password_confirmation=admin
+```zsh
+$ http :3000/signup name=admin email=admin@admin.com password=admin password_confirmation=admin
 Started POST "/signup" for 127.0.0.1 at 2017-12-28 15:30:52 -0600
 Processing by AdministratorsController#create as HTML
   Parameters: {"name"=>"admin", "email"=>"admin@admin.com", "password"=>"[FILTERED]", "password_confirmation"=>"[FILTERED]", "administrator"=>{"name"=>"admin", "email"=>"admin@admin.com"}}
@@ -35,8 +35,7 @@ X-Runtime: 0.187804
     "message": "Account created successfully"
 }
 
-$
-http :3000/auth/login email=admin@admin.com password=admin
+$ http :3000/auth/login email=admin@admin.com password=admin
 Started POST "/auth/login" for 127.0.0.1 at 2017-12-28 15:31:10 -0600
 Processing by AuthenticationController#authenticate as HTML
   Parameters: {"email"=>"admin@admin.com", "password"=>"[FILTERED]", "authentication"=>{"email"=>"admin@admin.com", "password"=>"[FILTERED]"}}
@@ -89,8 +88,7 @@ X-Runtime: 0.009354
     }
 ]
 
-$
-http POST :3000/stocks/ code=ADS name=Adidas_AG highest=60.10 lowest=60.10 current=60.10 difference=0
+$ http POST :3000/stocks/ code=ADS name=Adidas_AG highest=60.10 lowest=60.10 current=60.10 difference=0
 Started POST "/stocks/" for 127.0.0.1 at 2017-12-28 15:33:16 -0600
 Processing by StocksController#create as HTML
   Parameters: {"code"=>"ADS", "name"=>"Adidas_AG", "highest"=>"60.10", "lowest"=>"60.10", "current"=>"60.10", "difference"=>"0", "stock"=>{"code"=>"ADS", "name"=>"Adidas_AG", "highest"=>"60.10", "lowest"=>"60.10", "current"=>"60.10", "difference"=>"0"}}
@@ -108,8 +106,7 @@ X-Runtime: 0.001547
     "message": "Missing token"
 }
 
-$
-http POST :3000/stocks/ code=ADS name=Adidas_AG highest=60.10 lowest=60.10 current=60.10 difference=0 \
+$ http POST :3000/stocks/ code=ADS name=Adidas_AG highest=60.10 lowest=60.10 current=60.10 difference=0 \
 Authorization:'eyJhbGciOiJIUzI1NiJ9.eyJhZG1pbmlzdHJhdG9yX2lkIjoxLCJleHAiOjE1MTQ1ODMwNzB9.8Hz4vX48gwhsYV_I6hheAGs8xKMb3f6wXdKDDbHGKcc'
 Started POST "/stocks/" for 127.0.0.1 at 2017-12-28 15:33:39 -0600
 Processing by StocksController#create as HTML
